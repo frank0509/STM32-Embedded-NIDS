@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controlul motorului</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: linear-gradient(to right, #141e30, #243b55);
+            color: white;
+            padding: 20px;
+        }
+        header {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            font-size: 1.5rem;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+        }
+        .container {
+            margin-top: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            display: inline-block;
+            width: 50%;
+        }
+        button {
+            background-color: #1e90ff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            margin: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: #0d6efd;
+        }
+        .home-button {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #1e90ff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: background 0.3s, transform 0.2s;
+        }
+        .home-button:hover {
+            background: #0d6efd;
+            transform: scale(1.1);
+        }
+        input, select {
+            padding: 10px;
+            font-size: 1.2rem;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Controlul motorului</h1>
+        <a href="home.html" class="home-button">Pagina Principală</a>
+    </header>
+
+    <div class="container">
+        <h2>Setări Motor</h2>
+
+        <h3>Viteză:</h3>
+        <input type="range" id="speed" min="0" max="300" step="10" value="0" oninput="updateSpeed()">
+        <span id="speed-value">0 RPM</span>
+
+        <h3>Direcție:</h3>
+        <select id="direction">
+            <option value="dreapta">Dreapta</option>
+            <option value="stanga">Stanga</option>
+        </select>
+
+        <button onclick="sendSettings()">Trimite Setări</button>
+    </div>
+
+    <script>
+        function sendSettings() {
+            let speed = parseInt(document.getElementById("speed").value);
+            let direction = document.getElementById("direction").value;
+
+            if (speed > 0 && speed < 20) speed = 20;
+
+            fetch('/api/motor_control', {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ speed: speed, direction: direction })
+            })
+            .then(response => response.json())
+            .then(data => console.log("Răspuns server:", data))
+            .catch(error => console.error("Eroare:", error));
+        }
+
+        function updateSpeed() {
+            let speed = parseInt(document.getElementById("speed").value);
+            document.getElementById("speed-value").innerText = speed + " RPM";
+        }
+    </script>
+</body>
+</html>

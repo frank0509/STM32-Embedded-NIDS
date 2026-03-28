@@ -1,0 +1,3 @@
+../Core/Src/motor_control.c:14:6:accelerate_to_RPM	8
+../Core/Src/motor_control.c:80:6:decelerate_to_RPM	6
+../Core/Src/motor_control.c:107:6:set_direction	3

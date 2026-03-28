@@ -1,0 +1,2 @@
+../Core/Src/encoder_control.c:15:6:update_encoder	40	static
+../Core/Src/encoder_control.c:74:6:reset_encoder	16	static

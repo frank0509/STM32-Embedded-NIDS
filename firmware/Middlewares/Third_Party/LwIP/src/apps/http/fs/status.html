@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statusul motorului</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #141e30, #243b55);
+            color: #fff;
+            text-align: center;
+        }
+        header {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            font-size: 1.5rem;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+        }
+        .home-button {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #1e90ff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: background 0.3s, transform 0.2s;
+        }
+        .home-button:hover {
+            background: #0d6efd;
+            transform: scale(1.1);
+        }
+        main {
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 30px auto;
+            width: 80%;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+        }
+        .status-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            font-size: 1.2rem;
+        }
+        .status {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            width: 60%;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Starea motorului</h1>
+        <a href="home.html" class="home-button">Pagina Principală</a>
+    </header>
+    
+    <main>
+        <h2>Informații despre motor</h2>
+        <div class="status-container">
+            <div class="status">Stare: <span id="motor-status">Oprit</span></div>
+            <div class="status">Viteză: <span id="motor-speed">0</span> RPM</div>
+            <div class="status">Direcție: <span id="motor-direction">Nedefinită</span></div>
+            <div class="status">Timp de funcționare: <span id="motor-time">0 secunde</span></div>
+        </div>
+    </main>
+    
+    <script>
+        function fetchMotorStatus() {
+            fetch('/api/motor_status') // API-ul de unde se preiau datele
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("motor-status").innerText = data.status;
+                    document.getElementById("motor-speed").innerText = data.speed;
+                    document.getElementById("motor-direction").innerText = data.direction;
+                    document.getElementById("motor-time").innerText = data.runtime + " secunde";
+                })
+                .catch(error => console.error('Eroare la preluarea datelor:', error));
+        }
+
+        fetchMotorStatus();
+        setInterval(fetchMotorStatus, 2000); // Refresh la 2 secunde
+    </script>
+</body>
+</html>
