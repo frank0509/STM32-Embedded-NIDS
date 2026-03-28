@@ -1,8 +1,0 @@
-../Core/Src/arp_scan/arp.c:75:14:flask_sent_cb	24	static
-../Core/Src/arp_scan/arp.c:80:14:flask_connected_cb	32	static
-../Core/Src/arp_scan/arp.c:92:6:Telegram_Notify_To_Flask	56	static
-../Core/Src/arp_scan/arp.c:119:13:Get_Vendor_Name	32	static
-../Core/Src/arp_scan/arp.c:128:6:ARP_Scan_Init	8	static
-../Core/Src/arp_scan/arp.c:138:13:ping_recv_callback	48	static,ignoring_inline_asm
-../Core/Src/arp_scan/arp.c:149:21:ping_create_packet	24	static
-../Core/Src/arp_scan/arp.c:165:6:StartScanTask	160	static,ignoring_inline_asm
